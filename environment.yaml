@@ -10,5 +10,6 @@ dependencies:
   - python-dotenv
   - pip
   - pip:
-    - flask-migrate
-    - python-decouple
+      - flask-migrate
+      - python-decouple
+      - pytest
