@@ -1,0 +1,14 @@
+name: todo-flask-env
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - flask
+  - flask-sqlalchemy
+  - psycopg2
+  - python-dotenv
+  - pip
+  - pip:
+    - flask-migrate
+    - python-decouple
