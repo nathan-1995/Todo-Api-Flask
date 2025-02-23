@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, abort, Response
+from flask_cors import CORS
 from backend.config import Config
 from backend.models import db, Task
 from typing import Any, Dict, Tuple, List
@@ -18,6 +19,7 @@ logger: logging.Logger = logging.getLogger(__name__)
 # Create Flask application
 app: Flask = Flask(__name__)
 app.config.from_object(Config)
+CORS(app)
 
 # Init the database
 db.init_app(app)
