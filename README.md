@@ -1,6 +1,5 @@
 # Todo-Api-Flask
 
-
 # How to run on local machine
 ## Clone Repo
 Open terminal
