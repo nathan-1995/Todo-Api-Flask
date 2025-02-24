@@ -1,0 +1,41 @@
+# Setups the services for the application by passing the environment variables to the services
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+# Define the backend and frontend services
+  backend:
+    build: ./backend
+    image: ${DOCKER_USERNAME}/backend:latest
+    depends_on:
+      - db
+    environment:
+      FLASK_ENV: ${FLASK_ENV}
+      DB_HOST: db
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      SECRET_KEY: ${SECRET_KEY}
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build: ./frontend
+    image: ${DOCKER_USERNAME}/frontend:latest
+    depends_on:
+      - backend
+    environment:
+      VITE_BACKEND_URL: http://backend:5000
+    ports:
+      - "3000:80"
+
+volumes:
+  db_data:
