@@ -19,4 +19,6 @@ docker compose -f docker-compose.eval.yml up -d --build
 
 Open web browser and go to:
 
+```
 http://localhost:3000/
+```
