@@ -35,12 +35,13 @@ services:
       - "5000:5000"
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        VITE_BACKEND_URL: http://localhost:5000
     image: ${DOCKER_USERNAME}/react-todo:latest
     depends_on:
       - backend
-    environment:
-      VITE_BACKEND_URL: http://backend:5000
     ports:
       - "3000:80"
 

@@ -37,8 +37,8 @@ services:
     image: nathan14224/react-todo:latest # Pulls the image from Docker Hub
     depends_on:
       - backend
-    environment:
-      VITE_BACKEND_URL: http://backend:5000
+    args:
+        VITE_BACKEND_URL: http://localhost:5000
     ports:
       - "3000:80"
 

@@ -11,6 +11,10 @@ RUN npm install
 # Copy the entire dir
 COPY . .
 
+#Set arg and env variables
+ARG VITE_BACKEND_URL
+ENV VITE_BACKEND_URL=${VITE_BACKEND_URL}
+
 # Build the application
 RUN npm run build 
 
