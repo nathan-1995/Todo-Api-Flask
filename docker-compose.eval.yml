@@ -1,0 +1,46 @@
+#Used for evaluation purposes only
+services:
+  db:
+    image: postgres:13
+    # Healthcheck for the database service
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    environment:
+      POSTGRES_DB: Todo_DB
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: PostgresqPassword # Hardcoded password for testing purposes
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    image: nathan14224/flask-todo:latest # Pulls the image from Docker Hub
+    depends_on:
+      db:
+        condition: service_healthy 
+    environment:
+      FLASK_ENV: development
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: Todo_DB
+      DB_USER: postgres
+      DB_PASSWORD: PostgresqPassword
+      SECRET_KEY: supersecretkey
+    ports:
+      - "5000:5000"
+
+  frontend:
+    image: nathan14224/react-todo:latest # Pulls the image from Docker Hub
+    depends_on:
+      - backend
+    environment:
+      VITE_BACKEND_URL: http://backend:5000
+    ports:
+      - "3000:80"
+
+volumes:
+  db_data:
