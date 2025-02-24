@@ -13,7 +13,7 @@ services:
 # Define the backend and frontend services
   backend:
     build: ./backend
-    image: ${DOCKER_USERNAME}/backend:latest
+    image: ${DOCKER_USERNAME}/flask-todo:latest
     depends_on:
       - db
     environment:
@@ -29,7 +29,7 @@ services:
 
   frontend:
     build: ./frontend
-    image: ${DOCKER_USERNAME}/frontend:latest
+    image: ${DOCKER_USERNAME}/react-todo:latest
     depends_on:
       - backend
     environment:
