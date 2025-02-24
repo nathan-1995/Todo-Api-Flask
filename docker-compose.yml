@@ -9,7 +9,6 @@ services:
       timeout: 5s
       retries: 5
     environment:
-      POSTGRES_HOST: ${DB_HOST}
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -22,7 +21,8 @@ services:
     build: ./backend
     image: ${DOCKER_USERNAME}/flask-todo:latest
     depends_on:
-      - db
+      db:
+        condition: service_healthy 
     environment:
       FLASK_ENV: ${FLASK_ENV}
       DB_HOST: db
