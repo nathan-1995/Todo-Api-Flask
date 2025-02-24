@@ -23,6 +23,9 @@ CORS(app)
 
 # Init the database
 db.init_app(app)
+with app.app_context():
+    db.create_all()
+    logger.info("Database tables created")
 
 # Endpoint for creating a new task
 @app.route("/tasks", methods=["POST"])
@@ -76,7 +79,4 @@ def mark_task_as_completed(task_id: int) -> Tuple[Response, int]:
     return jsonify({"message": "Task updated successfully."}), 200
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-        logger.info("Database tables created")
     app.run(host="0.0.0.0", port=5000, debug=True)
